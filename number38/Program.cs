@@ -2,77 +2,29 @@
 // между максимальным и минимальным элементами массива
 // [3.22,4.2,1.15,77.15,65.2] => 77.15 - 1.15 = 76
 
-int size = Prompt("Введите размерность массива: ");
-int minValue = Prompt("Введите минимальное число диапазона массива: ");
-int maxValue = Prompt("Введите максимальное число диапазона массива: ");
-int[] array = GetArray(size,minValue,maxValue); 
-PrintArray(array); 
-int max = array[0];
-int min = array[0];
-GetMax(max);
-GetMin(min);
-Console.Write($"{max} - {min} = {max-min}");
+double[] Begarray = GetArray(5); 
+Console.WriteLine(string.Join("  ", Begarray));
+Console.WriteLine($"Разница = {GetDifference(Begarray)}");
 
-int Prompt(string message)  
+double[] GetArray(int size)
 {
-    Console.WriteLine(message);
-    int number = int.Parse(Console.ReadLine()!); 
-    return number; 
-}
-
-int[] GetArray(int size,int minValue,int maxValue) 
-{
-    int[] result = new int[size];
-    for(int i = 0;i<result.Length;i++)
+    double[] res = new double[size];
+    for(int i = 0; i < size; i++)
     {
-        result[i] = new Random().Next(minValue,maxValue+1);
+        res[i] = new Random().NextDouble() * 10 + new Random().Next();
+        res[i] = Math.Round(res[i], 3);
     }
-    return result;
+    return res;
 }
 
-void PrintArray(int[] arr) 
+double GetDifference(double[] array)
 {
-    Console.Write("[");
-    for(int i=0;i<arr.Length-1;i++)
+    double max = array[0];
+    double min = array[0];
+    foreach(double el in array)
     {
-        Console.Write($"{arr[i]},");
+        if (max < el) max = el;
+        if (min > el) min = el; 
     }
-    Console.Write($"{arr[arr.Length-1]}");
-    Console.Write($"] ->");
-}
-
-int GetMax(int max)
-{
-    max = array[0];
-    for(int i=0;i<array.Length;i++)
-    {
-        while(i>0 && i<array.Length)
-        {
-            if(max<array[i])
-            {
-                 max=array[i];
-            }
-        }
-    }
-    return max;
-}
-
-int GetMin(int min)
-{
-    min = array[0];
-   for(int j=0;j<array.Length;j++)
-   {
-       while(j>0 && j<array.Length)
-       {
-          if(min>array.Length)
-          {
-            min = array[j];
-          } 
-       }
-    }
-    return min;
-}
-
-
-
-
+    return max - min;
+} 
