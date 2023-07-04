@@ -11,7 +11,7 @@ double[] GetArray(int size)
     double[] res = new double[size];
     for(int i = 0; i < size; i++)
     {
-        res[i] = new Random().NextDouble() * 10 + new Random().Next();
+        res[i] = new Random().NextDouble() * 10 + new Random().Next(-100,100);
         res[i] = Math.Round(res[i], 3);
     }
     return res;
